@@ -7,6 +7,7 @@ import javax.net.ssl.TrustManager;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
@@ -46,7 +47,11 @@ public class SslInfoFetcher {
 
         HttpsURLConnection conn = null;
         try {
-            conn = (HttpsURLConnection) destinationURL.openConnection();
+            URLConnection urlConnection = destinationURL.openConnection();
+            if(!(urlConnection instanceof HttpsURLConnection)){
+                throw new SslInfoFetchException("Connectıon ıs not HTTPS");
+            }
+            conn = (HttpsURLConnection) urlConnection;
         } catch (IOException e) {
             throw new SslInfoFetchException("Unable to open connection to URL", e);
         }
