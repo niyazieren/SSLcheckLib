@@ -18,6 +18,14 @@ public class SslInfoFetcherTest {
         assertTrue(ınfo.isValid());
     }
 
+    @Test(expected = SslInfoFetchException.class)
+    public void timeOut() throws SslInfoFetchException {
+        SslInfoFetcher fetcher =new SslInfoFetcher();
+
+        fetcher.fetchInfo("https://1google.com");
+    }
+
+
     @Test
     public void fetchInfoInvalid() throws SslInfoFetchException {
         SslInfoFetcher fetcher =new SslInfoFetcher();

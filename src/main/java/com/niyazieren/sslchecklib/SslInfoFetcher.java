@@ -55,7 +55,8 @@ public class SslInfoFetcher {
         } catch (IOException e) {
             throw new SslInfoFetchException("Unable to open connection to URL", e);
         }
-
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(5000);
 
         try {
             conn.connect();
